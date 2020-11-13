@@ -1,0 +1,1266 @@
+0	g472	=	(g473)
+1	g473	=	(command eof)
+2	command	=	(unitcom)
+3	command	=	(unitcom semicolon command)
+4	unitcom	=	(whilecom)
+5	unitcom	=	(ifcom)
+6	unitcom	=	(assign)
+7	unitcom	=	(return)
+8	whilecom	=	(whilet exp dot command ewhile)
+9	ifcom	=	(ift exp thent command elset command eif)
+10	FUNCTION	=	(funct lpar VARS rpar lcurly command rcurly)
+11	CALL	=	(VAR lpar ARGS rpar)
+12	assign	=	(VAR seteq exp)
+13	assign	=	(VAR seteq FUNCTION)
+14	assign	=	(VAR seteq CALL)
+15	return	=	(ret exp)
+16	exp	=	(aexp)
+17	exp	=	(aexp gt aexp)
+18	exp	=	(aexp lt aexp)
+19	exp	=	(aexp eq aexp)
+20	exp	=	(aexp neq aexp)
+21	aexp	=	(bexp)
+22	aexp	=	(bexp minus aexp)
+23	aexp	=	(bexp plus aexp)
+24	bexp	=	(cexp)
+25	bexp	=	(cexp mult bexp)
+26	bexp	=	(cexp div bexp)
+27	cexp	=	(minus cexp)
+28	cexp	=	(lpar exp rpar)
+29	cexp	=	(NUM)
+30	cexp	=	(NULL)
+31	cexp	=	(BOOL)
+32	cexp	=	(STRING)
+33	cexp	=	(VAR)
+34	cexp	=	(list)
+35	cexp	=	(VAR listmem)
+36	list	=	(lbrack listValues rbrack)
+37	list	=	(lbrack rbrack)
+38	listValues	=	(exp)
+39	listValues	=	(exp comma listValues)
+40	VARS	=	(VAR)
+41	VARS	=	(VAR comma VARS)
+42	ARGS	=	(exp)
+43	ARGS	=	(exp comma ARGS)
+44	listmem	=	(lbrack exp rbrack)
+45	listmem	=	(lbrack exp rbrack listmem)
+State 0
+	g472 -> . g473 
+
+	assign					goto	6
+	ret					shift	9
+	whilecom					goto	4
+	command					goto	2
+	whilet					shift	10
+	ifcom					goto	5
+	VAR					shift	8
+	unitcom					goto	3
+	return					goto	7
+	ift					shift	11
+	g473					goto	1
+
+State 1
+	g472 -> g473 . 
+
+
+State 2
+	g473 -> command . eof 
+
+	eof					accept	
+
+State 3
+	command -> unitcom . 
+	command -> unitcom . semicolon command 
+
+	eof					reduce	2
+	eif					reduce	2
+	elset					reduce	2
+	ewhile					reduce	2
+	semicolon					shift	13
+	rcurly					reduce	2
+
+State 4
+	unitcom -> whilecom . 
+
+	eof					reduce	4
+	eif					reduce	4
+	elset					reduce	4
+	ewhile					reduce	4
+	semicolon					reduce	4
+	rcurly					reduce	4
+
+State 5
+	unitcom -> ifcom . 
+
+	eof					reduce	5
+	eif					reduce	5
+	elset					reduce	5
+	ewhile					reduce	5
+	semicolon					reduce	5
+	rcurly					reduce	5
+
+State 6
+	unitcom -> assign . 
+
+	eof					reduce	6
+	eif					reduce	6
+	elset					reduce	6
+	ewhile					reduce	6
+	semicolon					reduce	6
+	rcurly					reduce	6
+
+State 7
+	unitcom -> return . 
+
+	eof					reduce	7
+	eif					reduce	7
+	elset					reduce	7
+	ewhile					reduce	7
+	semicolon					reduce	7
+	rcurly					reduce	7
+
+State 8
+	assign -> VAR . seteq exp 
+	assign -> VAR . seteq FUNCTION 
+	assign -> VAR . seteq CALL 
+
+	seteq					shift	14
+
+State 9
+	return -> ret . exp 
+
+	NUM					shift	20
+	cexp					goto	18
+	lpar					shift	27
+	BOOL					shift	22
+	minus					shift	25
+	bexp					goto	17
+	NULL					shift	24
+	list					goto	19
+	STRING					shift	21
+	aexp					goto	16
+	VAR					shift	23
+	exp					goto	15
+	lbrack					shift	26
+
+State 10
+	whilecom -> whilet . exp dot command ewhile 
+
+	NUM					shift	20
+	cexp					goto	18
+	lpar					shift	27
+	BOOL					shift	22
+	minus					shift	25
+	bexp					goto	17
+	NULL					shift	24
+	list					goto	19
+	STRING					shift	21
+	aexp					goto	16
+	VAR					shift	23
+	exp					goto	28
+	lbrack					shift	26
+
+State 11
+	ifcom -> ift . exp thent command elset command eif 
+
+	NUM					shift	20
+	cexp					goto	18
+	lpar					shift	27
+	BOOL					shift	22
+	minus					shift	25
+	bexp					goto	17
+	NULL					shift	24
+	list					goto	19
+	STRING					shift	21
+	aexp					goto	16
+	VAR					shift	23
+	exp					goto	29
+	lbrack					shift	26
+
+State 12
+	g473 -> command eof . 
+
+
+State 13
+	command -> unitcom semicolon . command 
+
+	assign					goto	6
+	ret					shift	9
+	whilecom					goto	4
+	command					goto	30
+	whilet					shift	10
+	ifcom					goto	5
+	VAR					shift	8
+	unitcom					goto	3
+	return					goto	7
+	ift					shift	11
+
+State 14
+	assign -> VAR seteq . exp 
+	assign -> VAR seteq . FUNCTION 
+	assign -> VAR seteq . CALL 
+
+	CALL					goto	32
+	NUM					shift	20
+	cexp					goto	18
+	lpar					shift	27
+	BOOL					shift	22
+	minus					shift	25
+	funct					shift	35
+	bexp					goto	17
+	NULL					shift	24
+	list					goto	19
+	STRING					shift	21
+	aexp					goto	16
+	VAR					shift	34
+	exp					goto	33
+	lbrack					shift	26
+	FUNCTION					goto	31
+
+State 15
+	return -> ret exp . 
+
+	eof					reduce	15
+	eif					reduce	15
+	elset					reduce	15
+	ewhile					reduce	15
+	semicolon					reduce	15
+	rcurly					reduce	15
+
+State 16
+	exp -> aexp . 
+	exp -> aexp . gt aexp 
+	exp -> aexp . lt aexp 
+	exp -> aexp . eq aexp 
+	exp -> aexp . neq aexp 
+
+	rpar					reduce	16
+	rbrack					reduce	16
+	eq					shift	36
+	semicolon					reduce	16
+	eof					reduce	16
+	dot					reduce	16
+	lt					shift	39
+	rcurly					reduce	16
+	thent					reduce	16
+	eif					reduce	16
+	ewhile					reduce	16
+	gt					shift	38
+	comma					reduce	16
+	neq					shift	37
+	elset					reduce	16
+
+State 17
+	aexp -> bexp . 
+	aexp -> bexp . minus aexp 
+	aexp -> bexp . plus aexp 
+
+	rpar					reduce	21
+	rbrack					reduce	21
+	eif					reduce	21
+	semicolon					reduce	21
+	minus					shift	41
+	eof					reduce	21
+	plus					shift	40
+	dot					reduce	21
+	lt					reduce	21
+	rcurly					reduce	21
+	thent					reduce	21
+	ewhile					reduce	21
+	gt					reduce	21
+	comma					reduce	21
+	neq					reduce	21
+	elset					reduce	21
+	eq					reduce	21
+
+State 18
+	bexp -> cexp . 
+	bexp -> cexp . mult bexp 
+	bexp -> cexp . div bexp 
+
+	rpar					reduce	24
+	rbrack					reduce	24
+	eif					reduce	24
+	semicolon					reduce	24
+	minus					reduce	24
+	eof					reduce	24
+	plus					reduce	24
+	dot					reduce	24
+	div					shift	43
+	lt					reduce	24
+	rcurly					reduce	24
+	thent					reduce	24
+	ewhile					reduce	24
+	gt					reduce	24
+	comma					reduce	24
+	neq					reduce	24
+	elset					reduce	24
+	mult					shift	42
+	eq					reduce	24
+
+State 19
+	cexp -> list . 
+
+	rpar					reduce	34
+	rbrack					reduce	34
+	eif					reduce	34
+	semicolon					reduce	34
+	minus					reduce	34
+	eof					reduce	34
+	plus					reduce	34
+	dot					reduce	34
+	div					reduce	34
+	lt					reduce	34
+	rcurly					reduce	34
+	thent					reduce	34
+	ewhile					reduce	34
+	gt					reduce	34
+	comma					reduce	34
+	neq					reduce	34
+	elset					reduce	34
+	mult					reduce	34
+	eq					reduce	34
+
+State 20
+	cexp -> NUM . 
+
+	rpar					reduce	29
+	rbrack					reduce	29
+	eif					reduce	29
+	semicolon					reduce	29
+	minus					reduce	29
+	eof					reduce	29
+	plus					reduce	29
+	dot					reduce	29
+	div					reduce	29
+	lt					reduce	29
+	rcurly					reduce	29
+	thent					reduce	29
+	ewhile					reduce	29
+	gt					reduce	29
+	comma					reduce	29
+	neq					reduce	29
+	elset					reduce	29
+	mult					reduce	29
+	eq					reduce	29
+
+State 21
+	cexp -> STRING . 
+
+	rpar					reduce	32
+	rbrack					reduce	32
+	eif					reduce	32
+	semicolon					reduce	32
+	minus					reduce	32
+	eof					reduce	32
+	plus					reduce	32
+	dot					reduce	32
+	div					reduce	32
+	lt					reduce	32
+	rcurly					reduce	32
+	thent					reduce	32
+	ewhile					reduce	32
+	gt					reduce	32
+	comma					reduce	32
+	neq					reduce	32
+	elset					reduce	32
+	mult					reduce	32
+	eq					reduce	32
+
+State 22
+	cexp -> BOOL . 
+
+	rpar					reduce	31
+	rbrack					reduce	31
+	eif					reduce	31
+	semicolon					reduce	31
+	minus					reduce	31
+	eof					reduce	31
+	plus					reduce	31
+	dot					reduce	31
+	div					reduce	31
+	lt					reduce	31
+	rcurly					reduce	31
+	thent					reduce	31
+	ewhile					reduce	31
+	gt					reduce	31
+	comma					reduce	31
+	neq					reduce	31
+	elset					reduce	31
+	mult					reduce	31
+	eq					reduce	31
+
+State 23
+	cexp -> VAR . 
+	cexp -> VAR . listmem 
+
+	rpar					reduce	33
+	rbrack					reduce	33
+	eif					reduce	33
+	listmem					goto	44
+	lbrack					shift	45
+	semicolon					reduce	33
+	minus					reduce	33
+	eof					reduce	33
+	plus					reduce	33
+	dot					reduce	33
+	div					reduce	33
+	lt					reduce	33
+	rcurly					reduce	33
+	thent					reduce	33
+	ewhile					reduce	33
+	gt					reduce	33
+	comma					reduce	33
+	neq					reduce	33
+	elset					reduce	33
+	mult					reduce	33
+	eq					reduce	33
+
+State 24
+	cexp -> NULL . 
+
+	rpar					reduce	30
+	rbrack					reduce	30
+	eif					reduce	30
+	semicolon					reduce	30
+	minus					reduce	30
+	eof					reduce	30
+	plus					reduce	30
+	dot					reduce	30
+	div					reduce	30
+	lt					reduce	30
+	rcurly					reduce	30
+	thent					reduce	30
+	ewhile					reduce	30
+	gt					reduce	30
+	comma					reduce	30
+	neq					reduce	30
+	elset					reduce	30
+	mult					reduce	30
+	eq					reduce	30
+
+State 25
+	cexp -> minus . cexp 
+
+	NULL					shift	24
+	NUM					shift	20
+	STRING					shift	21
+	cexp					goto	46
+	VAR					shift	23
+	lpar					shift	27
+	BOOL					shift	22
+	lbrack					shift	26
+	minus					shift	25
+	list					goto	19
+
+State 26
+	list -> lbrack . listValues rbrack 
+	list -> lbrack . rbrack 
+
+	rbrack					shift	49
+	NUM					shift	20
+	cexp					goto	18
+	lpar					shift	27
+	BOOL					shift	22
+	minus					shift	25
+	bexp					goto	17
+	NULL					shift	24
+	list					goto	19
+	STRING					shift	21
+	aexp					goto	16
+	VAR					shift	23
+	exp					goto	47
+	lbrack					shift	26
+	listValues					goto	48
+
+State 27
+	cexp -> lpar . exp rpar 
+
+	NUM					shift	20
+	cexp					goto	18
+	lpar					shift	27
+	BOOL					shift	22
+	minus					shift	25
+	bexp					goto	17
+	NULL					shift	24
+	list					goto	19
+	STRING					shift	21
+	aexp					goto	16
+	VAR					shift	23
+	exp					goto	50
+	lbrack					shift	26
+
+State 28
+	whilecom -> whilet exp . dot command ewhile 
+
+	dot					shift	51
+
+State 29
+	ifcom -> ift exp . thent command elset command eif 
+
+	thent					shift	52
+
+State 30
+	command -> unitcom semicolon command . 
+
+	eof					reduce	3
+	eif					reduce	3
+	elset					reduce	3
+	ewhile					reduce	3
+	rcurly					reduce	3
+
+State 31
+	assign -> VAR seteq FUNCTION . 
+
+	eof					reduce	13
+	eif					reduce	13
+	elset					reduce	13
+	ewhile					reduce	13
+	semicolon					reduce	13
+	rcurly					reduce	13
+
+State 32
+	assign -> VAR seteq CALL . 
+
+	eof					reduce	14
+	eif					reduce	14
+	elset					reduce	14
+	ewhile					reduce	14
+	semicolon					reduce	14
+	rcurly					reduce	14
+
+State 33
+	assign -> VAR seteq exp . 
+
+	eof					reduce	12
+	eif					reduce	12
+	elset					reduce	12
+	ewhile					reduce	12
+	semicolon					reduce	12
+	rcurly					reduce	12
+
+State 34
+	CALL -> VAR . lpar ARGS rpar 
+	cexp -> VAR . 
+	cexp -> VAR . listmem 
+
+	eq					reduce	33
+	eif					reduce	33
+	semicolon					reduce	33
+	minus					reduce	33
+	lpar					shift	53
+	plus					reduce	33
+	div					reduce	33
+	lt					reduce	33
+	rcurly					reduce	33
+	eof					reduce	33
+	ewhile					reduce	33
+	gt					reduce	33
+	lbrack					shift	45
+	neq					reduce	33
+	elset					reduce	33
+	listmem					goto	44
+	mult					reduce	33
+
+State 35
+	FUNCTION -> funct . lpar VARS rpar lcurly command rcurly 
+
+	lpar					shift	54
+
+State 36
+	exp -> aexp eq . aexp 
+
+	NULL					shift	24
+	cexp					goto	18
+	STRING					shift	21
+	aexp					goto	55
+	list					goto	19
+	NUM					shift	20
+	lpar					shift	27
+	BOOL					shift	22
+	lbrack					shift	26
+	minus					shift	25
+	VAR					shift	23
+	bexp					goto	17
+
+State 37
+	exp -> aexp neq . aexp 
+
+	NULL					shift	24
+	cexp					goto	18
+	STRING					shift	21
+	aexp					goto	56
+	list					goto	19
+	NUM					shift	20
+	lpar					shift	27
+	BOOL					shift	22
+	lbrack					shift	26
+	minus					shift	25
+	VAR					shift	23
+	bexp					goto	17
+
+State 38
+	exp -> aexp gt . aexp 
+
+	NULL					shift	24
+	cexp					goto	18
+	STRING					shift	21
+	aexp					goto	57
+	list					goto	19
+	NUM					shift	20
+	lpar					shift	27
+	BOOL					shift	22
+	lbrack					shift	26
+	minus					shift	25
+	VAR					shift	23
+	bexp					goto	17
+
+State 39
+	exp -> aexp lt . aexp 
+
+	NULL					shift	24
+	cexp					goto	18
+	STRING					shift	21
+	aexp					goto	58
+	list					goto	19
+	NUM					shift	20
+	lpar					shift	27
+	BOOL					shift	22
+	lbrack					shift	26
+	minus					shift	25
+	VAR					shift	23
+	bexp					goto	17
+
+State 40
+	aexp -> bexp plus . aexp 
+
+	NULL					shift	24
+	cexp					goto	18
+	STRING					shift	21
+	aexp					goto	59
+	list					goto	19
+	NUM					shift	20
+	lpar					shift	27
+	BOOL					shift	22
+	lbrack					shift	26
+	minus					shift	25
+	VAR					shift	23
+	bexp					goto	17
+
+State 41
+	aexp -> bexp minus . aexp 
+
+	NULL					shift	24
+	cexp					goto	18
+	STRING					shift	21
+	aexp					goto	60
+	list					goto	19
+	NUM					shift	20
+	lpar					shift	27
+	BOOL					shift	22
+	lbrack					shift	26
+	minus					shift	25
+	VAR					shift	23
+	bexp					goto	17
+
+State 42
+	bexp -> cexp mult . bexp 
+
+	NULL					shift	24
+	list					goto	19
+	STRING					shift	21
+	cexp					goto	18
+	NUM					shift	20
+	lpar					shift	27
+	BOOL					shift	22
+	lbrack					shift	26
+	minus					shift	25
+	VAR					shift	23
+	bexp					goto	61
+
+State 43
+	bexp -> cexp div . bexp 
+
+	NULL					shift	24
+	list					goto	19
+	STRING					shift	21
+	cexp					goto	18
+	NUM					shift	20
+	lpar					shift	27
+	BOOL					shift	22
+	lbrack					shift	26
+	minus					shift	25
+	VAR					shift	23
+	bexp					goto	62
+
+State 44
+	cexp -> VAR listmem . 
+
+	rpar					reduce	35
+	rbrack					reduce	35
+	eif					reduce	35
+	semicolon					reduce	35
+	minus					reduce	35
+	eof					reduce	35
+	plus					reduce	35
+	dot					reduce	35
+	div					reduce	35
+	lt					reduce	35
+	rcurly					reduce	35
+	thent					reduce	35
+	ewhile					reduce	35
+	gt					reduce	35
+	comma					reduce	35
+	neq					reduce	35
+	elset					reduce	35
+	mult					reduce	35
+	eq					reduce	35
+
+State 45
+	listmem -> lbrack . exp rbrack 
+	listmem -> lbrack . exp rbrack listmem 
+
+	NUM					shift	20
+	cexp					goto	18
+	lpar					shift	27
+	BOOL					shift	22
+	minus					shift	25
+	bexp					goto	17
+	NULL					shift	24
+	list					goto	19
+	STRING					shift	21
+	aexp					goto	16
+	VAR					shift	23
+	exp					goto	63
+	lbrack					shift	26
+
+State 46
+	cexp -> minus cexp . 
+
+	rpar					reduce	27
+	rbrack					reduce	27
+	eif					reduce	27
+	semicolon					reduce	27
+	minus					reduce	27
+	eof					reduce	27
+	plus					reduce	27
+	dot					reduce	27
+	div					reduce	27
+	lt					reduce	27
+	rcurly					reduce	27
+	thent					reduce	27
+	ewhile					reduce	27
+	gt					reduce	27
+	comma					reduce	27
+	neq					reduce	27
+	elset					reduce	27
+	mult					reduce	27
+	eq					reduce	27
+
+State 47
+	listValues -> exp . 
+	listValues -> exp . comma listValues 
+
+	rbrack					reduce	38
+	comma					shift	64
+
+State 48
+	list -> lbrack listValues . rbrack 
+
+	rbrack					shift	65
+
+State 49
+	list -> lbrack rbrack . 
+
+	rpar					reduce	37
+	rbrack					reduce	37
+	eif					reduce	37
+	semicolon					reduce	37
+	minus					reduce	37
+	eof					reduce	37
+	plus					reduce	37
+	dot					reduce	37
+	div					reduce	37
+	lt					reduce	37
+	rcurly					reduce	37
+	thent					reduce	37
+	ewhile					reduce	37
+	gt					reduce	37
+	comma					reduce	37
+	neq					reduce	37
+	elset					reduce	37
+	mult					reduce	37
+	eq					reduce	37
+
+State 50
+	cexp -> lpar exp . rpar 
+
+	rpar					shift	66
+
+State 51
+	whilecom -> whilet exp dot . command ewhile 
+
+	assign					goto	6
+	ret					shift	9
+	whilecom					goto	4
+	command					goto	67
+	whilet					shift	10
+	ifcom					goto	5
+	VAR					shift	8
+	unitcom					goto	3
+	return					goto	7
+	ift					shift	11
+
+State 52
+	ifcom -> ift exp thent . command elset command eif 
+
+	assign					goto	6
+	ret					shift	9
+	whilecom					goto	4
+	command					goto	68
+	whilet					shift	10
+	ifcom					goto	5
+	VAR					shift	8
+	unitcom					goto	3
+	return					goto	7
+	ift					shift	11
+
+State 53
+	CALL -> VAR lpar . ARGS rpar 
+
+	NUM					shift	20
+	cexp					goto	18
+	lpar					shift	27
+	BOOL					shift	22
+	minus					shift	25
+	bexp					goto	17
+	NULL					shift	24
+	list					goto	19
+	STRING					shift	21
+	aexp					goto	16
+	VAR					shift	23
+	exp					goto	69
+	lbrack					shift	26
+	ARGS					goto	70
+
+State 54
+	FUNCTION -> funct lpar . VARS rpar lcurly command rcurly 
+
+	VARS					goto	71
+	VAR					shift	72
+
+State 55
+	exp -> aexp eq aexp . 
+
+	dot					reduce	19
+	rbrack					reduce	19
+	eif					reduce	19
+	eof					reduce	19
+	ewhile					reduce	19
+	rpar					reduce	19
+	semicolon					reduce	19
+	elset					reduce	19
+	comma					reduce	19
+	thent					reduce	19
+	rcurly					reduce	19
+
+State 56
+	exp -> aexp neq aexp . 
+
+	dot					reduce	20
+	rbrack					reduce	20
+	eif					reduce	20
+	eof					reduce	20
+	ewhile					reduce	20
+	rpar					reduce	20
+	semicolon					reduce	20
+	elset					reduce	20
+	comma					reduce	20
+	thent					reduce	20
+	rcurly					reduce	20
+
+State 57
+	exp -> aexp gt aexp . 
+
+	dot					reduce	17
+	rbrack					reduce	17
+	eif					reduce	17
+	eof					reduce	17
+	ewhile					reduce	17
+	rpar					reduce	17
+	semicolon					reduce	17
+	elset					reduce	17
+	comma					reduce	17
+	thent					reduce	17
+	rcurly					reduce	17
+
+State 58
+	exp -> aexp lt aexp . 
+
+	dot					reduce	18
+	rbrack					reduce	18
+	eif					reduce	18
+	eof					reduce	18
+	ewhile					reduce	18
+	rpar					reduce	18
+	semicolon					reduce	18
+	elset					reduce	18
+	comma					reduce	18
+	thent					reduce	18
+	rcurly					reduce	18
+
+State 59
+	aexp -> bexp plus aexp . 
+
+	rpar					reduce	23
+	rbrack					reduce	23
+	eif					reduce	23
+	semicolon					reduce	23
+	eof					reduce	23
+	dot					reduce	23
+	lt					reduce	23
+	rcurly					reduce	23
+	thent					reduce	23
+	ewhile					reduce	23
+	gt					reduce	23
+	comma					reduce	23
+	neq					reduce	23
+	elset					reduce	23
+	eq					reduce	23
+
+State 60
+	aexp -> bexp minus aexp . 
+
+	rpar					reduce	22
+	rbrack					reduce	22
+	eif					reduce	22
+	semicolon					reduce	22
+	eof					reduce	22
+	dot					reduce	22
+	lt					reduce	22
+	rcurly					reduce	22
+	thent					reduce	22
+	ewhile					reduce	22
+	gt					reduce	22
+	comma					reduce	22
+	neq					reduce	22
+	elset					reduce	22
+	eq					reduce	22
+
+State 61
+	bexp -> cexp mult bexp . 
+
+	rpar					reduce	25
+	rbrack					reduce	25
+	eif					reduce	25
+	semicolon					reduce	25
+	minus					reduce	25
+	eof					reduce	25
+	plus					reduce	25
+	dot					reduce	25
+	lt					reduce	25
+	rcurly					reduce	25
+	thent					reduce	25
+	ewhile					reduce	25
+	gt					reduce	25
+	comma					reduce	25
+	neq					reduce	25
+	elset					reduce	25
+	eq					reduce	25
+
+State 62
+	bexp -> cexp div bexp . 
+
+	rpar					reduce	26
+	rbrack					reduce	26
+	eif					reduce	26
+	semicolon					reduce	26
+	minus					reduce	26
+	eof					reduce	26
+	plus					reduce	26
+	dot					reduce	26
+	lt					reduce	26
+	rcurly					reduce	26
+	thent					reduce	26
+	ewhile					reduce	26
+	gt					reduce	26
+	comma					reduce	26
+	neq					reduce	26
+	elset					reduce	26
+	eq					reduce	26
+
+State 63
+	listmem -> lbrack exp . rbrack 
+	listmem -> lbrack exp . rbrack listmem 
+
+	rbrack					shift	73
+
+State 64
+	listValues -> exp comma . listValues 
+
+	NUM					shift	20
+	cexp					goto	18
+	lpar					shift	27
+	BOOL					shift	22
+	minus					shift	25
+	bexp					goto	17
+	NULL					shift	24
+	list					goto	19
+	STRING					shift	21
+	aexp					goto	16
+	VAR					shift	23
+	exp					goto	47
+	lbrack					shift	26
+	listValues					goto	74
+
+State 65
+	list -> lbrack listValues rbrack . 
+
+	rpar					reduce	36
+	rbrack					reduce	36
+	eif					reduce	36
+	semicolon					reduce	36
+	minus					reduce	36
+	eof					reduce	36
+	plus					reduce	36
+	dot					reduce	36
+	div					reduce	36
+	lt					reduce	36
+	rcurly					reduce	36
+	thent					reduce	36
+	ewhile					reduce	36
+	gt					reduce	36
+	comma					reduce	36
+	neq					reduce	36
+	elset					reduce	36
+	mult					reduce	36
+	eq					reduce	36
+
+State 66
+	cexp -> lpar exp rpar . 
+
+	rpar					reduce	28
+	rbrack					reduce	28
+	eif					reduce	28
+	semicolon					reduce	28
+	minus					reduce	28
+	eof					reduce	28
+	plus					reduce	28
+	dot					reduce	28
+	div					reduce	28
+	lt					reduce	28
+	rcurly					reduce	28
+	thent					reduce	28
+	ewhile					reduce	28
+	gt					reduce	28
+	comma					reduce	28
+	neq					reduce	28
+	elset					reduce	28
+	mult					reduce	28
+	eq					reduce	28
+
+State 67
+	whilecom -> whilet exp dot command . ewhile 
+
+	ewhile					shift	75
+
+State 68
+	ifcom -> ift exp thent command . elset command eif 
+
+	elset					shift	76
+
+State 69
+	ARGS -> exp . 
+	ARGS -> exp . comma ARGS 
+
+	rpar					reduce	42
+	comma					shift	77
+
+State 70
+	CALL -> VAR lpar ARGS . rpar 
+
+	rpar					shift	78
+
+State 71
+	FUNCTION -> funct lpar VARS . rpar lcurly command rcurly 
+
+	rpar					shift	79
+
+State 72
+	VARS -> VAR . 
+	VARS -> VAR . comma VARS 
+
+	rpar					reduce	40
+	comma					shift	80
+
+State 73
+	listmem -> lbrack exp rbrack . 
+	listmem -> lbrack exp rbrack . listmem 
+
+	rpar					reduce	44
+	rbrack					reduce	44
+	eif					reduce	44
+	listmem					goto	81
+	lbrack					shift	45
+	semicolon					reduce	44
+	minus					reduce	44
+	eof					reduce	44
+	plus					reduce	44
+	dot					reduce	44
+	div					reduce	44
+	lt					reduce	44
+	rcurly					reduce	44
+	thent					reduce	44
+	ewhile					reduce	44
+	gt					reduce	44
+	comma					reduce	44
+	neq					reduce	44
+	elset					reduce	44
+	mult					reduce	44
+	eq					reduce	44
+
+State 74
+	listValues -> exp comma listValues . 
+
+	rbrack					reduce	39
+
+State 75
+	whilecom -> whilet exp dot command ewhile . 
+
+	eof					reduce	8
+	eif					reduce	8
+	elset					reduce	8
+	ewhile					reduce	8
+	semicolon					reduce	8
+	rcurly					reduce	8
+
+State 76
+	ifcom -> ift exp thent command elset . command eif 
+
+	assign					goto	6
+	ret					shift	9
+	whilecom					goto	4
+	command					goto	82
+	whilet					shift	10
+	ifcom					goto	5
+	VAR					shift	8
+	unitcom					goto	3
+	return					goto	7
+	ift					shift	11
+
+State 77
+	ARGS -> exp comma . ARGS 
+
+	NUM					shift	20
+	cexp					goto	18
+	lpar					shift	27
+	BOOL					shift	22
+	minus					shift	25
+	bexp					goto	17
+	NULL					shift	24
+	list					goto	19
+	STRING					shift	21
+	aexp					goto	16
+	VAR					shift	23
+	exp					goto	69
+	lbrack					shift	26
+	ARGS					goto	83
+
+State 78
+	CALL -> VAR lpar ARGS rpar . 
+
+	eof					reduce	11
+	eif					reduce	11
+	elset					reduce	11
+	ewhile					reduce	11
+	semicolon					reduce	11
+	rcurly					reduce	11
+
+State 79
+	FUNCTION -> funct lpar VARS rpar . lcurly command rcurly 
+
+	lcurly					shift	84
+
+State 80
+	VARS -> VAR comma . VARS 
+
+	VARS					goto	85
+	VAR					shift	72
+
+State 81
+	listmem -> lbrack exp rbrack listmem . 
+
+	rpar					reduce	45
+	rbrack					reduce	45
+	eif					reduce	45
+	semicolon					reduce	45
+	minus					reduce	45
+	eof					reduce	45
+	plus					reduce	45
+	dot					reduce	45
+	div					reduce	45
+	lt					reduce	45
+	rcurly					reduce	45
+	thent					reduce	45
+	ewhile					reduce	45
+	gt					reduce	45
+	comma					reduce	45
+	neq					reduce	45
+	elset					reduce	45
+	mult					reduce	45
+	eq					reduce	45
+
+State 82
+	ifcom -> ift exp thent command elset command . eif 
+
+	eif					shift	86
+
+State 83
+	ARGS -> exp comma ARGS . 
+
+	rpar					reduce	43
+
+State 84
+	FUNCTION -> funct lpar VARS rpar lcurly . command rcurly 
+
+	assign					goto	6
+	ret					shift	9
+	whilecom					goto	4
+	command					goto	87
+	whilet					shift	10
+	ifcom					goto	5
+	VAR					shift	8
+	unitcom					goto	3
+	return					goto	7
+	ift					shift	11
+
+State 85
+	VARS -> VAR comma VARS . 
+
+	rpar					reduce	41
+
+State 86
+	ifcom -> ift exp thent command elset command eif . 
+
+	eof					reduce	9
+	eif					reduce	9
+	elset					reduce	9
+	ewhile					reduce	9
+	semicolon					reduce	9
+	rcurly					reduce	9
+
+State 87
+	FUNCTION -> funct lpar VARS rpar lcurly command . rcurly 
+
+	rcurly					shift	88
+
+State 88
+	FUNCTION -> funct lpar VARS rpar lcurly command rcurly . 
+
+	eof					reduce	10
+	eif					reduce	10
+	elset					reduce	10
+	ewhile					reduce	10
+	semicolon					reduce	10
+	rcurly					reduce	10
+
